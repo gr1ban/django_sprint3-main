@@ -1,12 +1,14 @@
 from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
+
 from .models import Post, Category
 
 """Константа для количества отображаемых постов"""
-NUM_POSTS_ON_PAGE = 5
+num_of_posts = 5
 
 
-def get_posts():
+def posts():
     """Получение постов из БД"""
     return Post.objects.select_related(
         'category',
@@ -22,12 +24,12 @@ def get_posts():
 def index(request):
     """Главная страница / Лента записей"""
     return render(request, 'blog/index.html',
-                  ({'posts': get_posts()[:NUM_POSTS_ON_PAGE]}))
+                  {'posts': posts()[:num_of_posts]})
 
 
 def post_detail(request, id):
     """Отображение полного описания выбранной записи"""
-    post = get_object_or_404(get_posts(), id=id)
+    post = get_object_or_404(posts(), id=id)
     return render(request, 'blog/detail.html', {'post': post})
 
 
@@ -39,5 +41,5 @@ def category_posts(request, category_slug):
         is_published=True
     )
     context = {'category': category,
-               'post_list': get_posts().filter(category=category)}
+               'posts': posts().filter(category=category)}
     return render(request, 'blog/category.html', context)
