@@ -23,7 +23,8 @@ def posts():
 
 def index(request):
     """Главная страница / Лента записей"""
-    return render(request, 'blog/index.html', {'posts': get_posts()[:NUM_POSTS_ON_PAGE]})
+    return render(request, 'blog/index.html', 
+                  ({'posts': get_posts()[:NUM_POSTS_ON_PAGE]}))
 
 
 def post_detail(request, id):
