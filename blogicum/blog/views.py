@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Category
 
 """Константа для количества отображаемых постов"""
-num_of_posts = 5
+NUM_OF_POSTS = 5
 
 
 def posts():
@@ -24,7 +24,7 @@ def posts():
 def index(request):
     """Главная страница / Лента записей"""
     return render(request, 'blog/index.html',
-                  {'posts': posts()[:num_of_posts]})
+                  {'posts': posts()[:NUM_OF_POSTS]})
 
 
 def post_detail(request, id):
